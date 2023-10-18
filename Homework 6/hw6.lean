@@ -50,20 +50,16 @@ example (P : α → β → Prop) : (∀ x y, P x y) ↔ ∀ y x, P x y := by
 example (P : α → Prop) (Q : Prop) : ((∃ x, P x) ∧ Q) ↔ ∃ x, (P x ∧ Q) := by
   constructor
   · intro h
-    have hE := h.left
+    have hP := h.left
     have hQ := h.right
-    obtain ⟨x, hPx⟩ := hE
-    use x
-    have result : P x ∧ Q := ⟨hPx, hQ⟩
-    exact result
+    obtain ⟨x, hp⟩ := hP
+    exact ⟨x, hp, hQ⟩
   · intro h
-    obtain ⟨x, ha⟩ := h
-    have hP := ha.left
-    have hQ := ha.right
+    obtain ⟨x, hP, hQ⟩ := h
     constructor
-    · use x
-      exact hP
+    · exact ⟨x, hP⟩
     · exact hQ
+
 
 
 
